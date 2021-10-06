@@ -1,0 +1,319 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@import "_import_file";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$mainColor: #f00;
+$padding: 30px;
+$mainFont: "Arial Black";
+$margin: 10px;
+$whiteColor: #fff;
+$blackColor: #444;
+$greenColor: #080;
+$grayColor: #eee;
+$redColor: #f00;
+$yellowColor: #ff0;
+$blueColor: #00f;
+$font: Arial;
+$margin: 5px;
+$padding: 5px;
+$fontSize: 30px;
+$mainWidth: 100%;
+$numberOfElements: 4;
+$dir: ltr;
+$floatLeft: left;
+$floatRight: right;
+$ft: font;
+$bg: background;
+$mg: margin;
+$pd: padding;
+$grids: 12;
+$map: (
+  btn1: #f00,
+  btn2: #0f0,
+  btn3: #00f,
+  btn4: #f0f,
+);
+$headings: (
+  h1: 60px,
+  h2: 50px,
+  h3: 40px,
+  h4: 30px,
+  h5: 20px,
+  h6: 10px,
+);
+
+@if ($dir == ltr) {
+  $floatLeft: left;
+  $floatRight: right;
+} @else {
+  $floatLeft: right;
+  $floatRight: left;
+}
+
+.class2,
+.class3,
+.class4 {
+  margin: $margin;
+}
+.class1 {
+  $blackColor: #444; // local variable;
+  $margin: 5px; // local variable => .class1 show it first;
+  margin: $margin;
+  background-color: $mainColor;
+  color: $blackColor;
+}
+.class2 {
+  $whiteColor: #fff; // local variable;
+  background-color: $mainColor;
+  color: $whiteColor;
+}
+
+.parent {
+  .child1 {
+    background-color: $greenColor;
+    p {
+      color: $blackColor;
+    }
+    .nestedChild {
+      p {
+        color: $greenColor;
+      }
+    }
+  }
+  .child2 {
+    background-color: $grayColor;
+    padding: $padding;
+    margin: $margin;
+    p {
+      font-size: 18px;
+      color: $blackColor;
+    }
+  }
+}
+.product {
+  background-color: $grayColor;
+  padding: $padding;
+  .desc {
+    font-family: $font;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    color: $blackColor;
+  }
+  .btn {
+    padding: 0.75rem 1.75rem;
+    background-color: $greenColor;
+    border: 2px solid transparent;
+    color: $whiteColor;
+    font-family: $font;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      border-color: $whiteColor;
+      background-color: transparent;
+      color: $blackColor;
+    }
+    &::before {
+      content: "=> ";
+    }
+  }
+}
+
+.div1,
+.div2,
+.div3,
+.div4 {
+  font-size: $fontSize * 1.5;
+  text-align: center;
+  color: $whiteColor;
+  float: left;
+}
+.div1 {
+  background-color: $mainColor;
+  width: $mainWidth / $numberOfElements;
+}
+.div2 {
+  background-color: $blackColor;
+  width: $mainWidth / $numberOfElements;
+}
+.div3 {
+  background-color: pink;
+  width: $mainWidth / $numberOfElements;
+}
+.div4 {
+  background-color: $greenColor;
+  width: $mainWidth / $numberOfElements;
+}
+
+// placeholder selector => %:
+%main {
+  padding: $padding;
+  margin: $margin;
+  background-color: $grayColor;
+  font-size: $fontSize - 10;
+}
+// normal class:
+.main {
+  @extend %main;
+  background-color: $greenColor;
+  color: $whiteColor;
+}
+// function:
+%bordering {
+  // % => placeholder selector;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $blackColor;
+}
+.error {
+  @extend %main; // call .main function;
+  @extend %bordering; // call .bordering function;
+  color: $redColor;
+}
+.success {
+  @extend %main; // call .main function;
+  color: $greenColor;
+}
+.yellow {
+  @extend %main; // call .main function;
+  @extend %bordering; // call .bordering function;
+  color: $yellowColor;
+}
+.blue {
+  @extend %main; // call .main function;
+  color: $blueColor;
+}
+
+// brRad(value) => function:
+@mixin brRad($value) {
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+  -o-border-radius: $value;
+  -ms-border-radius: $value;
+  border-radius: $value;
+}
+
+.article {
+  div {
+    background-color: $grayColor;
+    padding: $padding + 5;
+    margin-bottom: $margin * 2;
+    border: 1px solid #ddd;
+  }
+  .art1 {
+    @include brRad(5px);
+  }
+  .art2 {
+    @include brRad(10px);
+  }
+  .art3 {
+    @include brRad(15px);
+  }
+  .art4 {
+    @include brRad(20px);
+  }
+}
+
+@mixin floating($float) {
+  background-color: $grayColor;
+  padding: $padding + 5;
+  border: 1px solid #ddd;
+  float: $float;
+  width: $mainWidth / 4;
+}
+.article_2 {
+  div {
+    @include floating($floatLeft);
+  }
+}
+.article_3 {
+  div {
+    @include floating($floatRight);
+  }
+}
+
+@for $i from 1 through 8 {
+  .art_2_#{$i} {
+    #{$ft}-size: $fontSize - 10;
+    #{$bg}-color: $grayColor;
+    #{$mg}-bottom: $margin + 5;
+    #{$pd}: $padding * 2;
+  }
+}
+
+%grid {
+  #{$mg}: 0;
+  #{$bg}-color: $grayColor;
+  #{$pd}: $padding * 2;
+  border: 1px solid #aaa;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.container {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+@for $i from 1 through $grids {
+  .col#{$i} {
+    flex: 0 0 (100% / ($grids / $i));
+    @extend %grid;
+  }
+}
+@each $className, $bgColor, $fontColor, $hoverColor in (error, red, green, #ef2fa2), (success, green, red, #fd0079),
+  (ignored, orange, pink, #380438), (expanded, pink, orange, #4a586e)
+{
+  .#{$className} {
+    #{$bg}-color: $bgColor;
+    color: $fontColor;
+    &:hover {
+      #{$bg}-color: $hoverColor;
+      color: $whiteColor;
+    }
+  }
+}
+
+%generalStyle {
+  #{$pd}: $padding * 2;
+  #{$mg}-right: $margin * 2;
+  color: $whiteColor;
+  border: 1px solid $grayColor;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.btns {
+  button {
+    @extend %generalStyle;
+  }
+}
+@each $key, $val in $map {
+  .#{$key} {
+    #{$bg}-color: $val;
+  }
+}
+
+@each $hHead, $value in $headings {
+  #{$hHead} {
+    font-size: $value;
+  }
+}
+
+$x: 12;
+@while $x > 0 {
+  .col#{$x} {
+    flex: 0 0 (100% / ($grids / $x));
+    @extend %grid;
+  }
+  $x: $x - 1;
+}
+
+.alhiane {
+  @import "_al";
+}

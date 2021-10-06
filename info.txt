@@ -1,0 +1,86 @@
+// local vs gloab vars:
+    - The priority is for local variable;
+    - The local var is exist inside block of element;
+        """s
+            .class {
+                $localVar: value;
+                property: $localVar;
+            }
+        """
+    - The global var is exist in file globaly:
+        """
+            $localVar: value;
+            .class {
+                property: $localVar;
+            }
+        """
+
+
+
+// @extend => groupping originElement with otherElement:
+    - @extend is same function idea;
+    - groupping originElement with otherElement:
+    - @extend deesn't copy props but groupping elements:
+    originElement { @extend otherElement }:
+    """
+        * sass:
+            .originElement {
+                background-color: #f00;
+                color: white;
+                text-align: center;
+            }
+            .otherElement {
+                @extend .originElement;
+                font-size: 30px;
+            }
+            .otherElement {
+                @extend .originElement;
+                font-size: 14px;
+            }
+        * css:
+            .originElement,
+            .otherElement,
+            .otherElement {
+                background-color: #f00;
+                color: white;
+                text-align: center;
+            }
+    """
+    // % => placeholder selector: class doesn't rendering in my page;
+
+
+
+// @import:
+    - _file.scss => this file will not coverted to css;
+    - _file.scss => it's just for import it to other files;
+
+
+
+// concat:
+    """
+        $bg: background;
+        .class {
+            #{$bg}-color: #fff;
+        }
+    """
+
+
+
+
+// function is returned in sass:
+    """
+        @function largeFont($fontSize) {
+            @return $fontSize * 2;
+        }
+        .class {
+            font-size: largeFont(10);
+        }
+        => .class {font-size: largeFont(20);}
+    """
+
+
+
+// Output Style Options:
+    - expanded;
+    - compact;
+    - compressed;
